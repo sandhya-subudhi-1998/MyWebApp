@@ -57,4 +57,5 @@ public class RepoTest
 			repo.findAll().forEach(c->details.add(c));
 			assertEquals(2,details.size());
 		}
+	
 }
