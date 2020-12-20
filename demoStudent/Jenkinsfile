@@ -6,7 +6,7 @@ pipeline {
 		
 			steps {
 				sh '''
-			cd HelloWorld
+			cd demoStudent
 			mvn clean install
 		'''
 			}
