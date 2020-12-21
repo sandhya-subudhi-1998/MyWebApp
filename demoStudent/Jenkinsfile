@@ -5,22 +5,17 @@ pipeline {
 		stage ('Compile Stage') {
 		
 			steps {
-				sh 'mvn install'
+				sh '''
+			cd demoStudent
+			mvn clean install
+		'''
 			}
 		}
-		stage ('Test Stage') {
-			steps {
-				sh 'mvn test'
-				junit 'demoStudent/target/surefire-reports/*.xml'
-			}
-		}
-		stage ('SonarQube Stage') {
-			steps {
-				withSonarQubeEnv('Sonarqube') {
-					sh 'mvn clean install sonar:sonar'
-				}			
-			}
-		}
-		
 	}
+	post {
+		always {
+			junit 'demoStudent/target/surefire-reports/*.xml'
+			
+			}
+		}
 }
