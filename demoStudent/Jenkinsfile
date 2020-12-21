@@ -2,7 +2,7 @@ pipeline {
 	agent any
 	
 	stages {
-		stage ('Compile Stage') {
+		stage ('Build Stage') {
 		
 			steps {
 				sh '''
@@ -11,24 +11,10 @@ pipeline {
 		'''
 			}
 		}
-		stage ('test') {
+		stage ('Test Stage') {
 			steps {
 				junit 'demoStudent/target/surefire-reports/*.xml'
 			}	
 		}
-		stage ('Sonarqube') {
-			steps {
-				withSonarQubeEnv('SonarQube')	{
-					sh 'mvn clean install sonar:sonar'
-				}
-			}
-		}
-		stage("Quality Gate") {
- 		    steps {
-   			   timeout(time: 1, unit: 'MINUTES') {
-       				 waitForQualityGate abortPipeline: true
-   					 }
-  			   }
-		 }
 	}
 }
