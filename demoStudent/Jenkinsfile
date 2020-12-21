@@ -11,11 +11,9 @@ pipeline {
 		'''
 			}
 		}
-	}
-	post {
-		always {
+	stage ('test') {
+		steps {
 			junit 'demoStudent/target/surefire-reports/*.xml'
-			
-			}
-		}
+		}	
+	}
 }
