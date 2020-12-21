@@ -11,10 +11,17 @@ pipeline {
 		'''
 			}
 		}
-	stage ('test') {
-		steps {
-			junit 'demoStudent/target/surefire-reports/*.xml'
-		}	
-	}
+		stage ('test') {
+			steps {
+				junit 'demoStudent/target/surefire-reports/*.xml'
+			}	
+		}
+		stage ('Sonarqube') {
+			steps {
+				withSonarQubeEnv('SonarQube')	{
+					sh 'mvn clean install sonar:sonar'
+				}
+			}
+		}
 	}
 }
