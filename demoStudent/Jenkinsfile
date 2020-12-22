@@ -28,7 +28,7 @@ pipeline {
 			steps {
 					sh '''
 					cd demoStudent
-					ansible-playbook demoStudent/demo.yml
+					ansible-playbook demo.yml
 				'''
 			}	
 		}
