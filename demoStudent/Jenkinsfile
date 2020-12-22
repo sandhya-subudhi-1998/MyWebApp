@@ -16,5 +16,19 @@ pipeline {
 				junit 'demoStudent/target/surefire-reports/*.xml'
 			}	
 		}
+		stage ('QA Stage') {
+		
+			steps {
+				sh '''
+			cd demoStudent
+			mvn clean install sonar:sonar
+		'''
+			}
+		}
+		stage ('Deployment Stage') {
+			steps {
+				echo 'Deploy'
+			}	
+		}
 	}
 }
