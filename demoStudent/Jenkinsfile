@@ -2,6 +2,7 @@ pipeline {
 	agent any
 	
 	stages {
+	
 		stage ('Build Stage') {		
 			steps {
 				sh '''
@@ -10,13 +11,14 @@ pipeline {
 		'''
 			}
 		}
+		
 		stage ('Test Stage') {
 			steps {
 				junit 'demoStudent/target/surefire-reports/*.xml'
 			}	
 		}
-		stage ('QA Stage') {
 		
+		stage ('QA Stage') {		
 			steps {
 				sh '''
 			cd demoStudent
@@ -24,6 +26,7 @@ pipeline {
 		'''
 			}
 		}
+		
 		stage ('Deployment Stage') {
 			steps {
 					sh '''
