@@ -3,6 +3,7 @@
    hosts: test-servers
    gather_facts: true
    become: yes
+   become_method: sudo
    vars:
      tomcat_port: 8282
    tasks:
@@ -22,5 +23,9 @@
         src: "/usr/local/apache-tomcat-8.5.61.tar.gz"
         dest: /usr/local
         remote_src: yes
+    - name: Copy the war file
+      copy:
+        src: /var/lib/jenkins/workspace/WebApp/demoStudent/target/demoStudent-0.0.1-SNAPSHOT.war
+        dest: /usr/local/tomcat/webapps/
     - name: Starting tomcat
       shell: nohup /usr/local/tomcat/bin/startup.sh &
