@@ -19,4 +19,5 @@ public class DemoStudentApplication  extends SpringBootServletInitializer{
 		return super.configure(builder);
 	}
 	
+	
 }
