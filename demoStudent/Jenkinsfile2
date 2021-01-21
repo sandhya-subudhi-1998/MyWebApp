@@ -1,1 +1,21 @@
-
+@Library('shared-library@main') _ //master or whatever branch
+pipeline {
+	agent any
+	
+	stages {
+	
+		stage ('Build Stage') {		
+			steps {
+				sh '''
+			cd demoStudent
+			mvn clean install
+		'''
+			}
+		}
+   stage ('Check logs') { 
+     steps {
+     filterLogs ('WARNING', 5)
+       }
+    }
+	}
+}
