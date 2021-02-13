@@ -1,8 +1,27 @@
 ---
-- name: This is a hello-world example
-  hosts: test-servers
-  tasks:
-    - name: Create a file called '/tmp/testfile.txt' with the content 'hello world'.
+ - name: Configure in Remote Hosts
+   hosts: test-servers
+   gather_facts: true
+   become: yes
+   become_method: sudo
+   vars:
+     tomcat_port: 8282
+   tasks:
+    - name: Installing OpenJDK
+      apt:
+        name: openjdk-8-jdk
+    - name: Downloading tomcat
+      get_url:
+        url: "https://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.61/bin/apache-tomcat-8.5.61.tar.gz"
+        dest: /usr/local
+    - name: Extracting tomcat
+      unarchive:
+        src: "/usr/local/apache-tomcat-8.5.61.tar.gz"
+        dest: /usr/local
+        remote_src: yes
+    - name: Copy the war file
       copy:
-        content: hello worldn
-        dest: /tmp/testfile.txt
+        src: /var/lib/jenkins/workspace/WebApp/demoStudent/target/demoStudent-0.0.1-SNAPSHOT.war
+        dest: /usr/local/tomcat/webapps/
+    - name: Starting tomcat
+      shell: nohup /usr/local/tomcat/bin/startup.sh &
