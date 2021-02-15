@@ -1,2 +1,2 @@
 [test-servers]
-192.168.1.11 ansible_user=sandhya ansible_sudo_pass=tara1998@ 
+192.168.1.6 ansible_user=sandhya ansible_sudo_pass=tara1998@ 
